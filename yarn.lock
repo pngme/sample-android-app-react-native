@@ -1001,6 +1001,11 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@miblanchard/react-native-slider@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@miblanchard/react-native-slider/-/react-native-slider-2.1.0.tgz#6249463a9d4aa65dede586637ffe6ca167a9ebf3"
+  integrity sha512-5YRWaQjHl90Ue431RisN+5zr+380L//kWuabzYuo7mVI+CxbHaTQXDr7afkpGgNHCxkkzFlT3tWd+3/QbpgBLQ==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1021,6 +1026,11 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@react-native-community/checkbox@^0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.9.tgz#73e1fa91b0cbb4d1eaaa75a57844435a51c22290"
+  integrity sha512-2y/MW8zwXgzRN6fApZbYov3xKkR4vyWSOPo69OWSfa5emTbtKpSl7BY9xlKgu2pzGlLg5EyE8yogp0U7vFk+sQ==
 
 "@react-native-community/cli-debugger-ui@^6.0.0-rc.0":
   version "6.0.0-rc.0"
@@ -1228,6 +1238,12 @@
   integrity sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
+
+"@softmedialab/react-native-material-textfield@SoftMediaLab/react-native-material-textfield":
+  version "0.16.23"
+  resolved "https://codeload.github.com/SoftMediaLab/react-native-material-textfield/tar.gz/f421a685f47dc45cd336bb5c1464350c5ab37a08"
+  dependencies:
+    prop-types "^15.5.9"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -5351,7 +5367,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2:
+prop-types@^15.5.9, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
