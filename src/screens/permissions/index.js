@@ -7,23 +7,39 @@ import {
   Text,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import { useUser } from '../../context/user-context';
+
   
 import styles from './styles';
 
-const permissions = () => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+const permissions = (props) => {
+
+  const { navigation } = props;
+
+  const { user, setUser } = useUser();
+  const [toggleCheckBox, setToggleCheckBox] = useState(user.pngmePermissionWasSelected);
+  
+
+  const handleContinue = () => {
+    // If confirm that wants pngme permission we store it and next time it will be selected y default
+    if (toggleCheckBox) {
+      setUser({
+        pngmePermissionWasSelected: true,
+      });
+    }
+  }
 
   const renderCheckboxLine = (label, isSelected, onValueChange, disabled = false) => (
     <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={onValueChange}
-          style={styles.checkbox}
-          disabled={disabled}
-        />
-        <Text style={styles.label}>{label}</Text>
-      </View>
-  )
+      <CheckBox
+        value={isSelected}
+        onValueChange={onValueChange}
+        style={styles.checkbox}
+        disabled={disabled}
+      />
+      <Text style={styles.label}>{label}</Text>
+    </View>
+  );
 
   return (
     <SafeAreaView
@@ -43,13 +59,13 @@ const permissions = () => {
           <View style={styles.permissionsCheckbox}>
             {renderCheckboxLine("Share location", false, () => {}, true)}
             {renderCheckboxLine("Receive promotions", false, () => {}, true)}
-            {renderCheckboxLine("Use Pngme", toggleCheckBox, setToggleCheckBox, false)}
+            {renderCheckboxLine("Use Pngme", toggleCheckBox, setToggleCheckBox, user.pngmePermissionWasSelected)}
           </View>
           
           <View style={styles.buttonsWrapper}>
-            <Button 
+            <Button
               title="CONTINUE"
-              onPress={() => {}}
+              onPress={handleContinue}
             />
           </View>
           

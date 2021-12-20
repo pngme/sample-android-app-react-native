@@ -11,7 +11,9 @@ import { Slider } from '@miblanchard/react-native-slider';
 import styles from './styles';
 import Colors from '../../theme/Colors';
 
-const permissions = () => {
+const permissions = (props) => {
+  const { navigation } = props;
+
   const [loanAmountValue, setLoanAmountValue] = useState(100);
 
   return (
@@ -47,7 +49,7 @@ const permissions = () => {
           <View style={styles.buttonsWrapper}>
             <Button 
               title="NEXT"
-              onPress={() => {}}
+              onPress={() => navigation.navigate("LoggedWelcomeScreen")}
             />
           </View>
           

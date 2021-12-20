@@ -6,9 +6,12 @@ import {
   View,
   Text,
 } from 'react-native';
+
 import styles from './styles';
 
-const loggedWelcomeScreen = () => {
+const loggedWelcomeScreen = (props) => {
+
+  const { navigation } = props;
 
   return (
     <SafeAreaView
@@ -29,7 +32,7 @@ const loggedWelcomeScreen = () => {
           <View style={styles.buttonsWrapper}>
             <Button 
               title="APPLY FOR A LOAN"
-              onPress={() => {}}
+              onPress={() => navigation.navigate("Permissions")}
             />
             <View style={styles.secondButtonMarginTop}>
               <Button

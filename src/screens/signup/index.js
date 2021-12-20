@@ -6,13 +6,20 @@ import {
   View,
 } from 'react-native';
 import { TextField } from '@softmedialab/react-native-material-textfield';
+
+import { useUser } from '../../context/user-context';
 import styles from './styles';
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+  const { navigation } = props;
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  const { setUser } = useUser();
 
   return (
     <SafeAreaView
@@ -52,7 +59,16 @@ const SignUp = () => {
           <View style={styles.buttonsWrapper}>
             <Button
               title="CREATE ACCOUNT"
-              onPress={() => {}}
+              onPress={() => {
+                setUser({
+                  firstName,
+                  lastName,
+                  email,
+                  phoneNumber,
+                });
+                navigation.navigate('LoggedWelcomeScreen');
+              }}
+              disabled={!firstName || !lastName || !email || !phoneNumber}
             />
           </View>
           

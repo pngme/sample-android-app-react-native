@@ -8,7 +8,9 @@ import {
 import { TextField } from '@softmedialab/react-native-material-textfield';
 import styles from './styles';
 
-const Login = () => {
+const Login = (props) => {
+
+  const { navigation } = props;
 
   return (
     <SafeAreaView
@@ -43,7 +45,7 @@ const Login = () => {
             <View style={styles.secondButtonMarginTop}>
               <Button
                 title='Sign up'
-                onPress={() => {}}
+                onPress={() => navigation.navigate('Signup')}
               />
             </View>
           </View>
