@@ -1,2 +1,39 @@
-# react-native-sample-android-app
-Hello World example Android app, using React Native with the Kotlin SDK
+# Welcome to react-native-sample-android-app!
+
+The idea of this sample project is to show you how easy is to use **@pngme/react-native-sms-pngme-android** in a React-Native project.
+
+# How to run the project
+
+First please check that you have all the needed requirement on [React-Native official docs](https://reactnative.dev/docs/environment-setup)
+
+- Clone the repo
+- Create a `.env` file and inside the new file paste `PNGME_CLIENT_KEY=here you should use your demo key`
+- Then you should install dependencies `yarn` or `npm install`
+- Once dependencies where installed you can run the project with the following command `npx react-native run-android`
+
+# Acme Bank
+
+This sample app simulates to be a basic bank application where a you can sign up, and once you are logged in you can apply for a loan, before loan application you will be able to see a permission screen where you can check if **Pngme SMS SDK** is user or not.
+
+## Flow
+
+```mermaid
+graph LR
+A[Login] -- Example --> B[Signup]
+B --> C[Logged Welcome Screen]
+C -- User taps on `APPLY FOR A LOAN` --> D[Permissions]
+D --> F{User selects Pngme Permission}
+F -- Yes --> G[Call Pngme.go function]
+F -- No --> H[Loan application amount]
+G -- Pngme Ends --> H
+H -- Loan success --> C
+```
+
+## Environment variables handling
+
+We Higly recommend to use any libary to handle .env files, your Pngme key is secret to please do not hardcode it you your code. Remember that push secret keys to a repo is never a good idea.
+Also by having env files you can maintain your **sandbox** and **production** keys separately and ready to build with the correct environment
+
+## Where Pngme library is used on this demo app?
+
+If you only want to know how [Pngme npm library](https://www.npmjs.com/package/@pngme/react-native-sms-pngme-android) is used you can check `src/screens/permissions/index.js` there you will see how we use the library for this Acme bank sample project
