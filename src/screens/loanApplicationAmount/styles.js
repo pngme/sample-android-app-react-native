@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end',
     alignItems: 'flex-start'
   },
+  successTitleContent: {
+    flexDirection: 'column',
+    justifyContent:'center',
+    flex: 3,
+  },
 });
 
 export default styles;

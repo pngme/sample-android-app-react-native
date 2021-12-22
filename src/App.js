@@ -1,11 +1,9 @@
 import React, {useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import SplashScreen from 'react-native-splash-screen';
+
 import { UserProvider } from './context/user-provider';
-
-
 import Login from './screens/login';
 import Signup from './screens/signup';
 import LoggedWelcomeScreen from './screens/loggedWelcomeScreen';
