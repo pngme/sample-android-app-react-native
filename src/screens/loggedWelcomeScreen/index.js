@@ -25,7 +25,7 @@ const loggedWelcomeScreen = (props) => {
 
           <View style={styles.content}>
             <Text style={styles.title}>
-              Hello! Worlds's best banking app
+              Hello! World's best banking app
             </Text>
           </View>
           
