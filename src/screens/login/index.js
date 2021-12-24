@@ -5,7 +5,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { TextField } from '@softmedialab/react-native-material-textfield';
+import TextField from '../../components/TextInputField';
 import styles from './styles';
 
 const Login = (props) => {

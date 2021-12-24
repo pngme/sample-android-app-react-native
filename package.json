@@ -16,7 +16,7 @@
     "@react-native-community/checkbox": "^0.5.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
-    "@softmedialab/react-native-material-textfield": "SoftMediaLab/react-native-material-textfield",
+    "prop-types": "^15.8.0",
     "react": "17.0.2",
     "react-native": "0.66.4",
     "react-native-config": "^1.4.5",
