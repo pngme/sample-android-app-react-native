@@ -11,10 +11,10 @@ For the v2.x *Kotlin* docs and sample app, visit [here](https://github.com/pngme
 
 ### Flutter
 For the v2.x *Flutter* docs app, ~~visit her~~ *(COMING SOON)*
+
+
+
 # How to run the project
-
-
-
 First please check that you have all the needed requirement on [React-Native official docs](https://reactnative.dev/docs/environment-setup)
 
 - Clone the repo
