@@ -9,6 +9,7 @@ import Signup from './screens/signup';
 import LoggedWelcomeScreen from './screens/loggedWelcomeScreen';
 import Permissions from './screens/permissions';
 import LoanApplicationAmount from './screens/loanApplicationAmount';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const AppNameToShowOnNavBar = "Acme Bank";
@@ -21,6 +22,7 @@ const App = () => {
   }, [])
 
   return (
+    
     <UserProvider>
       <NavigationContainer>
         <Stack.Navigator>

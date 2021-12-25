@@ -27,7 +27,7 @@ const permissions = (props) => {
       </View>
       <View style={styles.content}>
         <Text style={styles.subtitle}>Loan Amount</Text>
-        <Text style={styles.loanAmountValue}>{loanAmountValue}</Text> 
+        <Text style={styles.loanAmountValue}>{`${loanAmountValue} NGN`}</Text> 
       </View>
 
       <Slider
