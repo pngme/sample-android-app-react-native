@@ -73,3 +73,7 @@ buck-out/
 # editor
 .vscode
 .idea
+
+# build
+yarn.lock
+package-lock.json
