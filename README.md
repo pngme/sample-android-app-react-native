@@ -12,7 +12,25 @@ For the v2.x *Kotlin* docs and sample app, visit [here](https://github.com/pngme
 ### Flutter
 For the v2.x *Flutter* docs app, ~~visit her~~ *(COMING SOON)*
 
+## React Native v2.x SDK - the basics
 
+To use the Android React native SDK and REST APIs, 
+you will need an SDK `clientKey` and a REST API Bearer `token`.
+Both can be found in the [pngme admin webconsole](https://admin.pngme.com).
+*Signing up for an account and getting started is free!*
+
+- The SDK accomplishes three tasks:
+    - register a user with pngme's identity system
+    - request permission for SMS from the user, with a [Permission Dialog Flow](.docs/permission_flow.gif)
+    - periodically upload SMS data to pngme's data processing pipeline
+- The SDK exposes three methods: a main entrypoint method, and two helper methods
+- Using the SDK requires an SDK `clientKey`,
+  available in the [Pngme Admin Webconsole](https://admin.pngme.com)
+
+Financial data extracted using the SDK is accessible
+in the [Pngme Admin Webconsole](https://admin.pngme.com) or
+via the Pngme REST APIs
+(see the [API Reference docs](https://developers.api.pngme.com/reference/getting-started-with-your-api)).
 
 # How to run the project
 First please check that you have all the needed requirement on [React-Native official docs](https://reactnative.dev/docs/environment-setup)
