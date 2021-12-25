@@ -1,8 +1,19 @@
-# Welcome to react-native-sample-android-app!
+# Pngme Android (React Native) SDK & sample App
 
-The idea of this sample project is to show you how easy is to use **@pngme/react-native-sms-pngme-android** in a React-Native project.
+*Welcome to the Pngme v2.x React Native SDK!*<br>
+This Readme will cover how the SDK works, get-started basics, and an example Android app.
 
+### Legacy SDK
+For documentation on the legacy SDK (v1.0.34) visit [here](https://developers.api.pngme.com/docs).
+
+### Kotlin
+For the v2.x *Kotlin* docs and sample app, visit [here](https://github.com/pngme/sample-android-app-kotlin).
+
+### Flutter
+For the v2.x *Flutter* docs app, ~~visit her~~ *(COMING SOON)*
 # How to run the project
+
+
 
 First please check that you have all the needed requirement on [React-Native official docs](https://reactnative.dev/docs/environment-setup)
 
