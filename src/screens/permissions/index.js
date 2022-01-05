@@ -33,20 +33,6 @@ const permissions = (props) => {
     navigation.navigate('LoanApplicationAmount');
   }
 
-  const pngmeGo = async() => {
-    await go({
-      clientKey: RNConfig.PNGME_CLIENT_KEY,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phoneNumber: `234${user.phone}`,
-      isKycVerified: false,
-      companyName: 'Acme Bank',
-      externalId: '',
-    });
-    navigateToLoanScreen();
-  }
-
   // Here we check if permission can be asked again, if user clicks on `never ask again` it will return false
   const canPermissionBeAskedAgain = async() => {
     try {
@@ -58,20 +44,21 @@ const permissions = (props) => {
   }
 
   const handleContinue = async() => {
-    
     if (toggleCheckBox) {
-      // If user confirm that wants pngme permission we store it and next time it will be selected by default
+      // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
-      
-      const permissionGranted = await isPermissionGranted();
-      const canPermissionBeAsked = await canPermissionBeAskedAgain();
-      debugger;
-      if (!permissionGranted && canPermissionBeAsked) {
-        resetPermissionFlow();
-      }
-      pngmeGo();
+      await go({
+        clientKey: RNConfig.PNGME_CLIENT_KEY,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: `234${user.phone}`,
+        isKycVerified: false,
+        companyName: 'Acme Bank',
+        externalId: '',
+      });
+      navigateToLoanScreen();
     } else {
-      debugger;
       navigateToLoanScreen();
     }
   }

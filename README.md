@@ -158,8 +158,68 @@ The sample app demonstrates a simple flow:
 3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented
 4. when the permission flow exits, the user is presented with the loan application page
 
+The SDK is implemented in the `screens/permissions/index.js`, when the user clicks on the *Continue* button:
+```ts
+const handleContinue = async() => {
+    if (toggleCheckBox) {
+      // if user confirm they want to use Pngme, we store that selection
+      setUser({ pngmePermissionWasSelected: true });
+      await go({
+        clientKey: RNConfig.PNGME_CLIENT_KEY,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: `234${user.phone}`,
+        isKycVerified: false,
+        companyName: 'Acme Bank',
+        externalId: '',
+      });
+      navigateToLoanScreen();
+    } else {
+      navigateToLoanScreen();
+    }
+  }
+```
 
+The app remembers the selection in step 2.
+If the user chooses to enable the Pngme service,
+then the checkbox stays selected for all future loan applications.
+The [Permission Flow](.docs/permission_flow.gif) is only showed the very first time,
+_regardless of if the user accepts or denies the permissions_.
 
+#### Show Permissions Flow Multiple Times
+Alternative behavior is to continue requesting SMS permissions if they were previously denied.
+Adding the following snippet will reset the Permission Flow
+if SMS permissions had been previously denied but not [permanently ignored](.docs/permissions.md).
+
+```ts
+const handleContinue = async() => {
+    if (toggleCheckBox) {
+        // if user confirm they want to use Pngme, we store that selection
+        setUser({ pngmePermissionWasSelected: true });
+
+        const permissionGranted = await isPermissionGranted();
+        const canPermissionBeAsked = await canPermissionBeAskedAgain();
+        if (!permissionGranted && canPermissionBeAsked) {
+            resetPermissionFlow();
+        }
+        
+        await go({
+            clientKey: RNConfig.PNGME_CLIENT_KEY,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phoneNumber: `234${user.phone}`,
+            isKycVerified: false,
+            companyName: 'Acme Bank',
+            externalId: '',
+        });
+        navigateToLoanScreen();
+    } else {
+        navigateToLoanScreen();
+    }
+}
+```
 
 
 
