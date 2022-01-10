@@ -1,7 +1,7 @@
-# Pngme Android (React Native) SDK & sample App
+# Pngme Android (React Native) SDK & Sample App
 
 *Welcome to the Pngme v2.x React Native SDK!*<br>
-This Readme will cover how the SDK works, get-started basics, and an example Android app.
+This Readme will cover how the SDK works, get-started basics, and a sample Android app.
 
 ### Legacy SDK
 For documentation on the legacy SDK (v1.0.34) visit [here](https://developers.api.pngme.com/docs).
@@ -14,21 +14,16 @@ For the v2.x *Flutter* docs app, ~~visit her~~ *(COMING SOON)*
 
 ## React Native v2.x SDK - the basics
 
-To use the Android React native SDK and REST APIs, 
-you will need an SDK `clientKey` and a REST API Bearer `token`.
-Both can be found in the [pngme admin webconsole](https://admin.pngme.com).
-*Signing up for an account and getting started is free!*
-
-- The SDK accomplishes three tasks:
-    - register a user with pngme's identity system
+1. The SDK accomplishes three tasks:
+    - register a mobile phone user with pngme's identity system
     - request permission for SMS from the user, with a [Permission Dialog Flow](.docs/permission_flow.gif)
-    - periodically upload SMS data to pngme's data processing pipeline
-- The SDK exposes three methods: a main entrypoint method, and two helper methods
-- Using the SDK requires an SDK `clientKey`,
-  available in the [Pngme Admin Webconsole](https://admin.pngme.com)
+    - periodically send SMS data to pngme's data processing pipeline
+2. The SDK supports Android API level 16+
+3. The SDK exposes three methods: a main entrypoint method, and two helper methods
+4. Using the SDK requires an SDK `clientKey`. Sign up and get started _for free_ at the [Pngme admin webconsole](https://admin.pngme.com)
 
-Financial data extracted using the SDK is accessible
-in the [Pngme Admin Webconsole](https://admin.pngme.com) or
+When the SDK has been successfully integrated, financial data extracted from a user's SMS will be accessible
+in the [Pngme admin Webconsole](https://admin.pngme.com) or
 via the Pngme REST APIs
 (see the [API Reference docs](https://developers.api.pngme.com/reference/getting-started-with-your-api)).
 
@@ -37,18 +32,18 @@ via the Pngme REST APIs
 To set up your project to use the Pngme SDK, follow these setup steps.
 
 ### _Step 1_
-Add the SDK package to your `package.json` file.
+Add the SDK package to your `package.json` file (substitute the exact SDK version).
 ```json
 {
   "dependencies": {
-    "@pngme/react-native-sms-pngme-android": "^2.0.2"
+    "@pngme/react-native-sms-pngme-android": "^2.X.Y"
   }
 }
 ```
 
 ### _Step 2_
 Add your SDK `clientKey` to the project.
-In the example app, the `clientKey` is injected via the `.env` file.
+In the sample app, the `clientKey` is injected via the `.env` file:
 
 ```text
 PNGME_CLIENT_KEY=XXXXXXXXXX
