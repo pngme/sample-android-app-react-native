@@ -49,11 +49,10 @@ In the sample app, the `clientKey` is injected via the `.env` file:
 PNGME_CLIENT_KEY=XXXXXXXXXX
 ```
 
-TODO: add information on securing client key
+⚠️ We recommend that additional measures be taken to protect the `clientKey` when implementing in a production app.
 
 ### _Step 3_
 Implement the `go()` method as needed in your app.
-
 
 ## Methods
 ### `go()`
@@ -73,17 +72,15 @@ interface PngmeSDKParamType {
   companyName: string;
 }
 ```
-The `go` method is an _async_ function that takes required string parameters.
+The `go` method is an _async_ function that takes eight required parameters.
 The `go` method is the main entrypoint method for invoking the PngmeSdk.
 The `go` method is idempotent, and can be invoked multiple times.
 
-TODO: document definition of the returned Promise<String> from go()
-
 The `go` method performs three tasks.
-1. register a `user` in pngme's system using an Android Onetime Worker
-2. show a dialog flow in the current Activity to request SMS permissions from the user --
+1. register a `user` in Pngme's system using an Android Onetime Worker
+2. show a [Permission Dialog Flow](.docs/permission_flow.gif) in the current Activity to request SMS permissions from the user --
    this _runs the first time, and only the first time_, that `go` is invoked
-3. send USSD SMS messages from the user's phone to pngme's system using an Android Periodic Worker
+3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Periodic Worker
 
 | var name | description |
 | -------- | ----------- |
@@ -102,7 +99,7 @@ The `go` method performs three tasks.
 type resetPermissionFlow = () => void
 ```
 
-As noted above, the Permission Dialog Flow will only run the first time that the `go` method is invoked.
+As noted above, the [Permission Dialog Flow](.docs/permission_flow.gif) will only run the first time that the `go` method is invoked.
 If your app needs to implement logic to show the Dialog Flow again,
 then you can reset the permission flow by calling `resetPermissionFlow`.
 The next time you call `go`, the Permission Dialog Flow will show again.
@@ -115,7 +112,7 @@ resetPermissionFlow(args)
 go(args)  // permission flow runs
 ```
 
-See the code snippets in the below documentation on the example app
+See the code snippets in the below documentation of the sample app
 for implementations where you might consider using this method to control the Permission Dialog Flow.
 
 ### `isPermissionGranted()`
@@ -131,14 +128,12 @@ Returns a Pr0mise with `false` if the user has denied the SMS permission request
 ## Sample Android App
 This repository is a sample Android app, which uses the Pngme SDK.
 This app uses the `.env` file to inject the SDK `clientKey`.
-TODO: refine below, if there are recommendations on better securing the client key
-~~Please note that this is for example purposes only.
-As noted in [Step 3](### _Step 3_) of the get [started section](## get started),
-it is highly recommended that a production application use a more secure method of injecting the `clientKey` secret.~~
+As noted above, it is highly recommend that additional measures be taken to protect the `clientKey` 
+when implementing in a production app.
 
 This app can be compiled and emulated locally, with or without a valid SDK `clientKey`.
-If a valid SDK `clientKey` is used, then data can be sent thru to the pngme system while testing in emulation mode.
-To run the sample app locally, simply install dependencies and launch the react native android app:
+If a valid SDK `clientKey` is used, then data can be sent thru to the Pngme system while testing in emulation mode.
+To run the sample app locally, simply install dependencies and launch the app:
 ```bash
 npm install  # alternative: yarn install
 npx react-native run-android
@@ -215,14 +210,3 @@ const handleContinue = async() => {
     }
 }
 ```
-
-
-
-## Environment variables handling
-
-We Higly recommend to use any libary to handle .env files, your Pngme key is secret to please do not hardcode it you your code. Remember that push secret keys to a repo is never a good idea.
-Also by having env files you can maintain your **sandbox** and **production** keys separately and ready to build with the correct environment
-
-## Where Pngme library is used on this demo app?
-
-If you only want to know how [Pngme npm library](https://www.npmjs.com/package/@pngme/react-native-sms-pngme-android) is used you can check `src/screens/permissions/index.js` there you will see how we use the library for this Acme bank sample project
