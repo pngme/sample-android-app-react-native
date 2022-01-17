@@ -210,3 +210,46 @@ const handleContinue = async() => {
     }
 }
 ```
+## Send SMS data locally
+As noted above, the primary responsibility of the Pngme SDK is to send SMS data to the Pngme system.
+This can be tested in a sample app running in the local emulator,
+assuming the emulated app is running with a valid SDK token.
+
+The following text message is of a recognized format for the Stanbic bank sender: `Stanbic`.
+```text
+Acc:XXXXXX1111
+CR:NGN4,000.00
+Desc:HELLO WORLD! SAMPLE MESSAGE
+Bal:NGN50,000.00
+```
+
+You can inject this fake SMS into the emulated phone by following these steps.
+It is advisable that you pre-populate the emulated phone with the SMS _before_ running the sample app.
+
+![Inject Fake SMS](.docs/inject_fake_sms.png)
+
+1. Open the `more` window in the emulator settings
+2. Navigate to the `phone` section
+3. Set the sender to the string `Stanbic`
+4. Copy/Paste the above same message into the message box
+5. Hit `Send Message`
+
+After following the above steps to send a fake SMS, run the sample app.
+The fake SMS will be sent to the Pngme system using the SDK token from your Pngme account.
+If the sample app runs successfully, the financial data in the text message will be accessible
+via the [Pngme REST APIs](https://developers.api.pngme.com/reference/getting-started-with-your-api) or in the [Pngme webconsole](https://admin.pngme.com).
+
+## Publishing to the Google Store
+So you have a working app! Congrats! But... it's not over yet.
+You will still need to whitelist your app with the Google Play store.  
+This is a special step necessary for any apps that require SMS permissions from the user.
+
+The whitelisting process is not hard, but if you have never whitelisted an app before, you may want assistance.
+Pngme can offer support in whitelisting your app, free of charge.
+Simply [contact us](mailto:whitelisting@pngme.com)
+and also visit our guide: [Going Live](https://developers.api.pngme.com/docs/going-live-with-the-sdk).
+We'll help you get your app through the approval process faster than you can say `Hello World!`
+
+If you insist on whitelisting your app without Pngme's assistance,
+please let us know and we will provide you with instructions.
+These will help you avoid setbacks when submitting your app for review.
