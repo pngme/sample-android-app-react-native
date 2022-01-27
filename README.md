@@ -128,7 +128,7 @@ Returns a Pr0mise with `false` if the user has denied the SMS permission request
 ## Sample Android App
 This repository is a sample Android app, which uses the Pngme SDK.
 This app uses the `.env` file to inject the SDK `clientKey`.
-As noted above, it is highly recommend that additional measures be taken to protect the `clientKey` 
+As noted above, it is highly recommended that additional measures be taken to protect the `clientKey` 
 when implementing in a production app.
 
 This app can be compiled and emulated locally, with or without a valid SDK `clientKey`.
@@ -139,7 +139,7 @@ npm install  # alternative: yarn install
 npx react-native run-android
 ```
 ⬆️ Running the above assumes you have set up your environment for Android development in React Native.
-See the [React Native Offical Docs](https://reactnative.dev/docs/environment-setup)
+See the [React Native Official Docs](https://reactnative.dev/docs/environment-setup)
 
 ### Behavior
 The sample app demonstrates a simple flow:
