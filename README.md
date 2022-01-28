@@ -32,14 +32,14 @@ via the Pngme REST APIs
 To set up your project to use the Pngme SDK, follow these setup steps.
 
 ### _Step 1_
-Add the SDK package to your `package.json` file (substitute the exact SDK version).
+Add the SDK package to your `package.json` file.
 #### Using Yarn
 
-`yarn add pngme/react-native-sms-pngme-android@X.Y.Z`
+`yarn add @pngme/react-native-sms-pngme-android@2.0.4`
 
 #### Using Npm
 
-`npm install pngme/react-native-sms-pngme-android@X.Y.Z --save`
+`npm install @pngme/react-native-sms-pngme-android@2.0.4 --save`
 
 ### _Step 2_
 Add your SDK `clientKey` to the project.
