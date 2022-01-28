@@ -52,7 +52,7 @@ const permissions = (props) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        phoneNumber: `234${user.phone}`,
+        phoneNumber: `234${user.phoneNumber}`,
         isKycVerified: false,
         companyName: 'Acme Bank',
         externalId: '',
