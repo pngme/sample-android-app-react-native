@@ -135,7 +135,7 @@ This app can be compiled and emulated locally, with or without a valid SDK `clie
 If a valid SDK `clientKey` is used, then data can be sent thru to the Pngme system while testing in emulation mode.
 To run the sample app locally, simply install dependencies and launch the app:
 ```bash
-npm install  # alternative: yarn install
+yarn install
 npx react-native run-android
 ```
 ⬆️ Running the above assumes you have set up your environment for Android development in React Native.
