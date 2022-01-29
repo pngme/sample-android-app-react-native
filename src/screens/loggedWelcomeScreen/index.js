@@ -9,7 +9,7 @@ import {
 
 import styles from './styles';
 
-const loggedWelcomeScreen = (props) => {
+const LoggedWelcomeScreen = (props) => {
 
   const { navigation } = props;
 
@@ -48,4 +48,4 @@ const loggedWelcomeScreen = (props) => {
   );
 };
 
-export default loggedWelcomeScreen;
+export default LoggedWelcomeScreen;

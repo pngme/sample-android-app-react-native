@@ -11,7 +11,7 @@ import { Slider } from '@miblanchard/react-native-slider';
 import styles from './styles';
 import Colors from '../../theme/Colors';
 
-const permissions = (props) => {
+const Permissions = (props) => {
   const { navigation } = props;
 
   const [loanAmountValue, setLoanAmountValue] = useState(100);
@@ -79,4 +79,4 @@ const permissions = (props) => {
   );
 };
 
-export default permissions;
+export default Permissions;

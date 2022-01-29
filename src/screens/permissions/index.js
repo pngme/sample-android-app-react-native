@@ -22,7 +22,7 @@ import { useUser } from '../../context/user-context';
   
 import styles from './styles';
 
-const permissions = (props) => {
+const Permissions = (props) => {
 
   const { navigation } = props;
 
@@ -109,4 +109,4 @@ const permissions = (props) => {
   );
 };
 
-export default permissions;
+export default Permissions;
