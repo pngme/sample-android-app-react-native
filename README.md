@@ -10,7 +10,7 @@ This Readme will cover how the SDK works, get-started basics, and a sample Andro
 For the v2.x *Kotlin* docs and sample app, visit [here](https://github.com/pngme/sample-android-app-kotlin).
 
 ### Flutter
-For the v2.x *Flutter* docs app, ~~visit her~~ *(COMING SOON)*
+For the v2.x *Flutter* docs app, visit [here](https://github.com/pngme/sample-android-app-flutter).
 
 ## React Native v2.x SDK - the basics
 
