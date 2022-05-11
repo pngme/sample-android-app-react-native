@@ -20,7 +20,13 @@ For the v2.x *Flutter* docs app, visit [here](https://github.com/pngme/sample-an
     - periodically send SMS data to pngme's data processing pipeline
 2. The SDK supports Android API level 16+
 3. The SDK exposes three methods: a main entrypoint method, and two helper methods
-4. Using the SDK requires an SDK `clientKey`. Sign up and get started _for free_ at the [Pngme admin webconsole](https://admin.pngme.com)
+4. Using the SDK requires an **SDK Token** (which is referred as `clientKey` in the entrypoint method). 
+  * To retrieve your **SDK Token**, sign up and **get started _for free_** at the [Pngme admin webconsole](https://admin.pngme.com)
+  * Once you have created your organization, navigate to `Keys` in the webconsole and copy the SDK Token for the environment you want to use
+
+![webconsole keys screen](.docs/webconsole_keys.png)
+    
+  > Notice how **pngme** provides a `production` environment meant to receive real data from real final users an a `test` environment for testing and evaluation purposes
 
 When the SDK has been successfully integrated, financial data extracted from a user's SMS will be accessible
 in the [Pngme admin Webconsole](https://admin.pngme.com) or
@@ -42,27 +48,26 @@ Add the SDK package to your `package.json` file.
 `npm install @pngme/react-native-sms-pngme-android@2.0.4 --save`
 
 ### _Step 2_
-Add your SDK `clientKey` to the project.
-In the sample app, the `clientKey` is injected via the `.env` file:
+Add your **SDK Token** to the project. In the sample app, the **SDK Token** is injected via the `.env` file:
 
 ```text
-PNGME_CLIENT_KEY=XXXXXXXXXX
+PNGME_SDK_TOKEN=XXXXXXXXXX
 ```
 
-⚠️ We recommend that additional measures be taken to protect the `clientKey` when implementing in a production app.
+> ⚠️ We recommend that additional measures be taken to protect the **SDK Token** when implementing in a production app.
 
 ### _Step 3_
 Implement the `go()` method as needed in your app.
 
 ## Methods
-### `go()`
+### Entrypoint: `go()`
 ```ts
 type go = (params: PngmeSDKParamType) => Promise<string>
 ```
 
 ```ts
 interface PngmeSDKParamType {
-  clientKey: string;
+  clientKey: string; // This corresponds to the SDK Token
   firstName: string;
   lastName: string;
   email: string;
@@ -72,24 +77,26 @@ interface PngmeSDKParamType {
   companyName: string;
 }
 ```
+
 The `go` method is an _async_ function that takes eight required parameters.
 The `go` method is the main entrypoint method for invoking the PngmeSdk.
 The `go` method is idempotent, and can be invoked multiple times.
 
 The `go` method performs three tasks.
+
 1. register a `user` in Pngme's system using an Android Onetime Worker
 2. show a [Permission Dialog Flow](.docs/permission_flow.gif) in the current Activity to request SMS permissions from the user --
-   this _runs the first time, and only the first time_, that `go` is invoked
+   by default, this _runs the first time, and only the first time_, that `go` is invoked
 3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Periodic Worker
 
 | var name | description |
 | -------- | ----------- |
-| clientKey | the Pngme SDK key for your account (see above) |
+| clientKey | the Pngme SDK Token for your account (see above) |
 | firstName | the mobile phone user's first name |
 | lastName | the mobile phone user's last name |
 | email | the mobile phone user's email address |
 | phoneNumber | the mobile phone user's phone number, example `"23411234567"` |
-| externalId | a unique identifier provided by your app (if none available, pass an empty string `""`)|
+| externalId | a unique identifier for the user provided by your app (if none available, pass an empty string `""`)|
 |isKycVerified | a boolean, indicating if your app has verified the user's identity using KYC |
 | companyName | your company's name; this is used in the display header of the permissions UI flow |
 
@@ -121,32 +128,36 @@ for implementations where you might consider using this method to control the Pe
 type isPermissionGranted = () => Promise<boolean>
 ```
 
-A simple _async_ helper function to indicate if the user has accepted the SMS permissions request.
-Returns a Promise with `true` if the user has accepted the SMS permission request.
-Returns a Pr0mise with `false` if the user has denied the SMS permission request.
+This is the _async_ helper function to indicate if the user has accepted the SMS permissions request:
+* Returns a Promise with `true` if the user has accepted the SMS permission request.
+* Returns a Promise with `false` if the user has denied the SMS permission request.
 
 ## Sample Android App
-This repository is a sample Android app, which uses the Pngme SDK.
-This app uses the `.env` file to inject the SDK `clientKey`.
-As noted above, it is highly recommended that additional measures be taken to protect the `clientKey` 
-when implementing in a production app.
 
-This app can be compiled and emulated locally, with or without a valid SDK `clientKey`.
-If a valid SDK `clientKey` is used, then data can be sent thru to the Pngme system while testing in emulation mode.
-To run the sample app locally, simply install dependencies and launch the app:
+> Running these next steps assume that you have set up your environment for Android development in React Native.
+See the [React Native Official Docs](https://reactnative.dev/docs/environment-setup) before proceeding if needed.
+
+This repository is a sample Android app, which uses the Pngme SDK.
+This app uses the `.env` file to inject the SDK Token.
+As noted above, it is highly recommended that additional measures be taken to protect the SDK Token when implementing in a production app.
+
+This app can be compiled and emulated locally, with or without a valid SDK Token.
+If a valid SDK Token is used, then data will be sent through to the Pngme system while testing in emulation mode.
+
+> Before launching the app, you might want to have some SMS ready in the phone's inbox for faster testing. Refer to the section [Send SMS data locally](#Send-SMS-data-locally) down below
+
+To run the sample app locally, install dependencies and launch the app:
 ```bash
 yarn install
 npx react-native run-android
 ```
-⬆️ Running the above assumes you have set up your environment for Android development in React Native.
-See the [React Native Official Docs](https://reactnative.dev/docs/environment-setup)
 
 ### Behavior
-The sample app demonstrates a simple flow:
+The sample app demonstrates a basic flow:
 1. user creates an account with the app
 2. the user goes to apply for a loan, and has the option of selecting to use the Pngme service
 3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented
-4. when the permission flow exits, the user is presented with the loan application page
+4. when the permission flow exits, the user is presented with a fake loan application page
 
 The SDK is implemented in the `screens/permissions/index.js`, when the user clicks on the *Continue* button:
 ```ts
@@ -155,7 +166,7 @@ const handleContinue = async() => {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
       await go({
-        clientKey: RNConfig.PNGME_CLIENT_KEY,
+        clientKey: RNConfig.PNGME_SDK_TOKEN,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -177,7 +188,7 @@ then the checkbox stays selected for all future loan applications.
 The [Permission Flow](.docs/permission_flow.gif) is only showed the very first time,
 _regardless of if the user accepts or denies the permissions_.
 
-#### Show Permissions Flow Multiple Times
+### Show Permissions Flow Multiple Times
 Alternative behavior is to continue requesting SMS permissions if they were previously denied.
 Adding the following snippet will reset the Permission Flow
 if SMS permissions had been previously denied but not [permanently ignored](.docs/permissions.md).
@@ -195,7 +206,7 @@ const handleContinue = async() => {
         }
         
         await go({
-            clientKey: RNConfig.PNGME_CLIENT_KEY,
+            clientKey: RNConfig.PNGME_SDK_TOKEN,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
@@ -215,6 +226,8 @@ As noted above, the primary responsibility of the Pngme SDK is to send SMS data 
 This can be tested in a sample app running in the local emulator,
 assuming the emulated app is running with a valid SDK token.
 
+Android Emulator can simulate incoming SMS messages, and we can use this to test the Pngme SDK locally.
+
 The following text message is of a recognized format for the Stanbic bank sender: `Stanbic`.
 ```text
 Acc:XXXXXX1111
@@ -225,6 +238,10 @@ Bal:NGN50,000.00
 
 You can inject this fake SMS into the emulated phone by following these steps.
 It is advisable that you pre-populate the emulated phone with the SMS _before_ running the sample app.
+
+> Once the app gets the permissions form the user it will instantly start sending existing SMS messages to the Pngme system. This results in messages being seen way sooner than SMS received after the app was installed.
+> 
+> As stated before, the daemon is processing new messages every 30 minutes, so the new feed messages will take at least 30 minutes to appear in the webconsole.
 
 ![Inject Fake SMS](.docs/inject_fake_sms.png)
 
@@ -240,6 +257,7 @@ If the sample app runs successfully, the financial data in the text message will
 via the [Pngme REST APIs](https://developers.api.pngme.com/reference/getting-started-with-your-api) or in the [Pngme webconsole](https://admin.pngme.com).
 
 ## Publishing to the Google Store
+
 So you have a working app! Congrats! But... it's not over yet.
 You will still need to whitelist your app with the Google Play store.  
 This is a special step necessary for any apps that require SMS permissions from the user.
