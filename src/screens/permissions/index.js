@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
 import {
   Button,
+  NativeModules,
+  PermissionsAndroid,
   SafeAreaView,
   ScrollView,
-  View,
   Text,
-  PermissionsAndroid,
-  NativeModules,
+  View,
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import React, { useState } from 'react';
 import {
   go,
   isPermissionGranted,
   resetPermissionFlow,
 } from '@pngme/react-native-sms-pngme-android';
+
+import CheckBox from '@react-native-community/checkbox';
 import RNConfig from 'react-native-config';
- 
-
-import { useUser } from '../../context/user-context';
-
-  
 import styles from './styles';
+import { useUser } from '../../context/user-context';
 
 const Permissions = (props) => {
 
@@ -48,7 +45,7 @@ const Permissions = (props) => {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
       await go({
-        clientKey: RNConfig.PNGME_CLIENT_KEY,
+        clientKey: RNConfig.PNGME_SDK_TOKEN,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
