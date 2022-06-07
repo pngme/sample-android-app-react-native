@@ -46,7 +46,7 @@ Add your **SDK Token** to `.env`.
 PNGME_SDK_TOKEN=XXXXXXXXXX
 ```
 
-> ⚠️ We recommend that additional measures be taken to protect the **SDK Token** when implementing in a production app. Consider using an encrypted secrets manager to store the SDK token.
+> ⚠️ We recommend that additional measures be taken to protect the **SDK Token** when implementing in a production app. Consider using an encrypted secrets manager (such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/)) to store the SDK token.
 
 ### Step 3
 
@@ -78,7 +78,7 @@ The `go` method performs three tasks.
 1. register a `user` in Pngme's system using an Android Onetime Worker
 2. show a [Permission Dialog Flow](.docs/permission_flow.gif) in the current Activity to request SMS permissions from the user --
    by default, this _runs the first time, and only the first time_, that `go` is invoked
-3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Periodic Worker
+3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Background Worker
 
 | Field         | Description                                                                                         |
 | ------------- | --------------------------------------------------------------------------------------------------- |
@@ -227,7 +227,7 @@ It is advisable that you pre-populate the emulated phone with the SMS _before_ r
 
 > Once the app gets the permissions form the user it will instantly start sending existing SMS messages to the Pngme system. This results in messages being seen way sooner than SMS received after the app was installed.
 >
-> The daemon is processing new messages every 30 minutes, so the new feed messages will take at least 30 minutes to appear in the webconsole.
+> The background worker processes new messages every 30 minutes, so new sessages will take at least 30 minutes to appear in the webconsole.
 
 ![Inject Fake SMS](.docs/inject_fake_sms.png)
 
