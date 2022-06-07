@@ -3,7 +3,7 @@
   <h3 align="center">Pngme Android (React Native) SDK & Sample App</h3>
 </p>
 
-This documentation covers how to use the Kotlin SDK v2.x with React Native.
+This documentation covers how to use the Pngme SDK with React Native.
 
 You can find similar documentation for [Flutter](https://github.com/pngme/sample-android-app-flutter) and [Kotlin](https://github.com/pngme/sample-android-app-kotlin).
 
