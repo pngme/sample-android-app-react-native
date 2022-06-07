@@ -82,7 +82,7 @@ The `go` method performs three tasks.
 
 | Field         | Description                                                                                         |
 | ------------- | --------------------------------------------------------------------------------------------------- |
-| clientKey     | the Pngme SDK Token for your account (see above)                                                    |
+| clientKey     | the SDK Token from the [Pngme Dashboard Keys page](https://admin.pngme.com/keys)                    |
 | firstName     | the mobile phone user's first name                                                                  |
 | lastName      | the mobile phone user's last name                                                                   |
 | email         | the mobile phone user's email address                                                               |
