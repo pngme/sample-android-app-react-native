@@ -57,7 +57,7 @@ Call the `go()` method in your app where you would like to trigger the [Permissi
 ### `go()`
 
 ```ts
-type go = (params: PngmeSDKParamType) => Promise<string>;
+type go = (params: PngmeSDKParamType) => Promise<void>;
 
 interface PngmeSDKParamType {
   clientKey: string; // pass the SDK token here
