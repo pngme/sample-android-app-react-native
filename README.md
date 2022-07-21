@@ -71,6 +71,24 @@ interface PngmeSDKParamType {
 }
 ```
 
+```ts
+import { go } from '@pngme/react-native-sms-pngme-android';
+
+  const openSDK = async() => {
+    const goParams = {
+      clientKey,
+      firstName: userFirstName,
+      lastName: userLastName,
+      email: userEmail,
+      phoneNumber: userPhone,
+      isKycVerified: kycVerified === 'true',
+      companyName,
+      externalId,
+    };
+    const response = await go(goParams);
+  }
+
+```
 > The `go()` method can be safely invoked multiple times. The user will only be prompted for permissions when `go()` is called (1) the first time or (2) after `resetPermissionFlow()`.
 
 The `go` method performs three tasks.
