@@ -189,7 +189,7 @@ android {
 }
 
 dependencies {
-    if (targetSdkVersion == 31) {
+    if (targetSdkVersion >= 31) {
         // This is to fix a known issue in Android 31 (API 12)
         implementation 'androidx.work:work-runtime-ktx:2.7.1'
     }
