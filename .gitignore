@@ -72,9 +72,10 @@ buck-out/
 .env.stage
 
 # editor
-.vscode
-.idea
+.vscode/
+.idea/
 
 # build
 yarn.lock
 package-lock.json
+
