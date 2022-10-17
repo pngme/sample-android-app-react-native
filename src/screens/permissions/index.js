@@ -64,6 +64,7 @@ const Permissions = (props) => {
         isKycVerified: false,
         companyName: 'Acme Bank',
         externalId: '',
+        hidePngmeDialog: false, // if you want to hide the Pngme dialog, set this to true
       });
     } else if (toggleCheckBox && user.pngmePermissionWasSelected) {
       const reRequestSMSPermission = await canPermissionBeAskedAgain();

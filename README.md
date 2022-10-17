@@ -86,6 +86,7 @@ interface PngmeSDKParamType {
   externalId: string;
   isKycVerified: boolean;
   companyName: string;
+  hidePngmeDialog?: boolean; // defaults to false
 }
 ```
 
@@ -98,16 +99,17 @@ The `go` method performs three tasks.
    by default, this _runs the first time, and only the first time_, that `go` is invoked
 3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Background Worker
 
-| Field         | Description                                                                                         |
-| ------------- | --------------------------------------------------------------------------------------------------- |
-| clientKey     | the SDK Token from the [Pngme Dashboard Keys page](https://admin.pngme.com/keys)                    |
-| firstName     | the mobile phone user's first name                                                                  |
-| lastName      | the mobile phone user's last name                                                                   |
-| email         | the mobile phone user's email address                                                               |
-| phoneNumber   | the mobile phone user's phone number, example `"23411234567"`                                       |
-| externalId    | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
-| isKycVerified | a boolean, indicating if your app has verified the user's identity using KYC                        |
-| companyName   | your company's name; this is used in the display header of the permissions UI flow                  |
+| Field           | Description                                                                                         |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| clientKey       | the SDK Token from the [Pngme Dashboard Keys page](https://admin.pngme.com/keys)                    |
+| firstName       | the mobile phone user's first name                                                                  |
+| lastName        | the mobile phone user's last name                                                                   |
+| email           | the mobile phone user's email address                                                               |
+| phoneNumber     | the mobile phone user's phone number, example `"23411234567"`                                       |
+| externalId      | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
+| isKycVerified   | a boolean, indicating if your app has verified the user's identity using KYC                        |
+| companyName     | your company's name; this is used in the display header of the permissions UI flow                  |
+| hidePngmeDialog | a boolean, indicating if the Pngme dialog should be hidden in the permissions UI flow               |
 
 ### `resetPermissionFlow()`
 
@@ -157,7 +159,7 @@ The sample app demonstrates a basic flow:
 
 1. user creates an account with the app
 2. the user goes to apply for a loan, and has the option of selecting to use the Pngme service
-3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented
+3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented (unless the `hidePngmeDialog` flag has been set to `true`)
 4. when the permission flow exits, the user is presented with a fake loan application page
 
 The SDK is implemented in the `screens/permissions/index.js`, when the user clicks on the _Continue_ button:
