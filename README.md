@@ -160,7 +160,10 @@ The sample app demonstrates a basic flow:
 1. user creates an account with the app
 2. the user goes to apply for a loan, and has the option of selecting to use the Pngme service
 3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented (unless the `hidePngmeDialog` flag has been set to `true`)
+  
+    <sub>- _Note that if a user chooses to hide the permissions flow, they will need to design their own information and consent screen compliant with Google Whitelisting requirements. Consult with <support@pngme.com> if you would like assistance with this process._</sub>
 4. when the permission flow exits, the user is presented with a fake loan application page
+
 
 The SDK is implemented in the `screens/permissions/index.js`, when the user clicks on the _Continue_ button:
 
@@ -197,6 +200,7 @@ _regardless of if the user accepts or denies the permissions_.
 Alternative behavior is to continue requesting SMS permissions if they were previously denied.
 Adding the following snippet will reset the Permission Flow
 if SMS permissions had been previously denied but not [permanently ignored](.docs/permissions.md).
+
 
 ```ts
 const handleContinue = async () => {
