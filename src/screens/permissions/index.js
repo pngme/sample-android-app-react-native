@@ -40,8 +40,19 @@ const Permissions = (props) => {
     }
   }
 
+  const requestSMSPermission = async () => {
+    try {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_SMS
+      );
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+  
+
   const handleContinue = async() => {
-    if (toggleCheckBox) {
+    if (toggleCheckBox && !user.pngmePermissionWasSelected) {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
       await go({
@@ -54,10 +65,13 @@ const Permissions = (props) => {
         companyName: 'Acme Bank',
         externalId: '',
       });
-      navigateToLoanScreen();
-    } else {
-      navigateToLoanScreen();
+    } else if (toggleCheckBox && user.pngmePermissionWasSelected) {
+      const reRequestSMSPermission = await canPermissionBeAskedAgain();
+      if (reRequestSMSPermission) {
+        await requestSMSPermission();
+      }
     }
+    navigateToLoanScreen();
   }
 
   const renderCheckboxLine = (label, isSelected, onValueChange, disabled = false) => (
