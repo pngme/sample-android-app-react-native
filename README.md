@@ -32,11 +32,11 @@ Add the SDK package to your `package.json` file.
 
 #### Using Yarn
 
-`yarn add @pngme/react-native-sms-pngme-android@2.0.4`
+`yarn add @pngme/react-native-sms-pngme-android`
 
 #### Using Npm
 
-`npm install @pngme/react-native-sms-pngme-android@2.0.4 --save`
+`npm install @pngme/react-native-sms-pngme-android --save`
 
 ### Step 2
 
