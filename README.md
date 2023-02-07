@@ -36,7 +36,7 @@ Add the SDK package to your `package.json` file.
 
 #### Using Npm
 
-`npm install @pngme/react-native-sms-pngme-android --save`
+`npm install @pngme/react-native-sms-pngme-android@3.2.0 --save`
 
 ### Step 2
 
