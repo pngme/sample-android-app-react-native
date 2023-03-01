@@ -107,7 +107,6 @@ The `go` method performs three tasks.
 | email           | the mobile phone user's email address                                                               |
 | phoneNumber     | the mobile phone user's phone number, example `"23411234567"`                                       |
 | externalId      | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
-| isKycVerified   | a boolean, indicating if your app has verified the user's identity using KYC                        |
 | companyName     | your company's name; this is used in the display header of the permissions UI flow                  |
 | hidePngmeDialog | a boolean, indicating if the Pngme dialog should be hidden in the permissions UI flow               |
 
