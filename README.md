@@ -175,7 +175,6 @@ const handleContinue = async () => {
       lastName: user.lastName,
       email: user.email,
       phoneNumber: `234${user.phoneNumber}`,
-      isKycVerified: false,
       companyName: "Acme Bank",
       externalId: "",
     });
