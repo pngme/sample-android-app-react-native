@@ -62,7 +62,6 @@ const openSDK = async () => {
     lastName: userLastName,
     email: userEmail,
     phoneNumber: userPhone,
-    isKycVerified: kycVerified === "true",
     companyName,
     externalId,
   };
@@ -84,7 +83,6 @@ interface PngmeSDKParamType {
   email: string;
   phoneNumber: string;
   externalId: string;
-  isKycVerified: boolean;
   companyName: string;
   hidePngmeDialog?: boolean; // defaults to false
 }
@@ -218,7 +216,6 @@ const handleContinue = async () => {
       lastName: user.lastName,
       email: user.email,
       phoneNumber: `234${user.phoneNumber}`,
-      isKycVerified: false,
       companyName: "Acme Bank",
       externalId: "",
     });
