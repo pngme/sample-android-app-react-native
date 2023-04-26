@@ -55,6 +55,12 @@ const Permissions = (props) => {
     if (toggleCheckBox && !user.pngmePermissionWasSelected) {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
+      const userGrantedPermission = await isPermissionGranted()
+
+      if (!userGrantedPermission) {
+        resetPermissionFlow();
+      }
+
       await go({
         clientKey: RNConfig.PNGME_SDK_TOKEN,
         firstName: user.firstName,
