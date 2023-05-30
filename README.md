@@ -68,7 +68,7 @@ const openSDK = async () => {
   const response = await go(goParams);
 };
 ```
-or if you want to use your own custom dialog, you can use the `goWithCustomDialog()` method.
+If you would like to use your own onboarding flow in which a user is presented with Pngme's terms & conditions and privacy policy, you can use the `goWithCustomDialog()` method.
 
 ```ts
 import { goWithCustomDialog } from "@pngme/react-native-sms-pngme-android";
