@@ -68,15 +68,34 @@ const openSDK = async () => {
   const response = await go(goParams);
 };
 ```
+If you would like to use your own onboarding flow in which a user is presented with Pngme's terms & conditions and privacy policy, you can use the `goWithCustomDialog()` method.
+
+```ts
+import { goWithCustomDialog } from "@pngme/react-native-sms-pngme-android";
+
+const openSDK = async () => {
+  const goWithCustomDialogParams = {
+    clientKey,
+    firstName: userFirstName,
+    lastName: userLastName,
+    email: userEmail,
+    phoneNumber: userPhone,
+    companyName,
+    externalId,
+    hasAcceptedTerms: true, // defaults to false
+  };
+  const response = await goWithCustomDialog(goWithCustomDialogParams);
+};
+```
 
 ## PngmeSDK API
 
 ### `go()`
 
 ```ts
-type go = (params: PngmeSDKParamType) => Promise<void>;
+type go = (params: GoParams) => Promise<void>;
 
-interface PngmeSDKParamType {
+interface GoParams {
   clientKey: string; // pass the SDK token here
   firstName: string;
   lastName: string;
@@ -84,13 +103,27 @@ interface PngmeSDKParamType {
   phoneNumber: string;
   externalId: string;
   companyName: string;
-  hidePngmeDialog?: boolean; // defaults to false
 }
 ```
 
-> The `go()` method can be safely invoked multiple times. The user will only be prompted for permissions when `go()` is called (1) the first time or (2) after `resetPermissionFlow()`.
+### `goWithCustomDialog()`
 
-The `go` method performs three tasks.
+```ts
+type goWithCustomDialog = (params: GoWithCustomDialogParams) => Promise<void>;
+
+interface GoWithCustomDialogParams {
+  clientKey: string; // pass the SDK token here
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  externalId: string;
+  companyName: string;
+  hasAcceptedTerms: boolean; // defaults to false
+}
+```
+
+The `go` and `goWithCustomDialog` method performs three tasks.
 
 1. register a `user` in Pngme's system using an Android Onetime Worker
 2. show a [Permission Dialog Flow](.docs/permission_flow.gif) in the current Activity to request SMS permissions from the user --
@@ -106,17 +139,7 @@ The `go` method performs three tasks.
 | phoneNumber     | the mobile phone user's phone number, example `"23411234567"`                                       |
 | externalId      | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
 | companyName     | your company's name; this is used in the display header of the permissions UI flow                  |
-| hidePngmeDialog | a boolean, indicating if the Pngme dialog should be hidden in the permissions UI flow               |
-
-### `resetPermissionFlow()`
-
-```ts
-type resetPermissionFlow = () => void;
-```
-
-The [Permission Dialog Flow](.docs/permission_flow.gif) will only run the first time that the `go` method is invoked.
-
-If your app needs to implement logic to show the Dialog Flow again, then you can reset the permission flow by calling `resetPermissionFlow`.
+| hasAcceptedTerms | a boolean, if the user has accepted the terms and conditions when invoking the 'goWithCustomDialog' method.              |
 
 ### `isPermissionGranted()`
 
@@ -156,7 +179,7 @@ The sample app demonstrates a basic flow:
 
 1. user creates an account with the app
 2. the user goes to apply for a loan, and has the option of selecting to use the Pngme service
-3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented (unless the `hidePngmeDialog` flag has been set to `true`)
+3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented
 
    <sub>- :warning: _Note that if a user chooses to hide the permissions flow, they will need to design their own information and consent screen compliant with Google Whitelisting requirements. Consult with <support@pngme.com> if you would like assistance with this process._</sub>
 
@@ -190,40 +213,6 @@ If the user chooses to enable the Pngme service,
 then the checkbox stays selected for all future loan applications.
 The [Permission Flow](.docs/permission_flow.gif) is only showed the very first time,
 _regardless of if the user accepts or denies the permissions_.
-
-### Show Permissions Flow Multiple Times
-
-Alternative behavior is to continue requesting SMS permissions if they were previously denied.
-Adding the following snippet will reset the Permission Flow
-if SMS permissions had been previously denied but not [permanently ignored](.docs/permissions.md).
-
-```ts
-const handleContinue = async () => {
-  if (toggleCheckBox) {
-    // if user confirm they want to use Pngme, we store that selection
-    setUser({ pngmePermissionWasSelected: true });
-
-    const permissionGranted = await isPermissionGranted();
-    const canPermissionBeAsked = await canPermissionBeAskedAgain();
-    if (!permissionGranted && canPermissionBeAsked) {
-      resetPermissionFlow();
-    }
-
-    await go({
-      clientKey: RNConfig.PNGME_SDK_TOKEN,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phoneNumber: `234${user.phoneNumber}`,
-      companyName: "Acme Bank",
-      externalId: "",
-    });
-    navigateToLoanScreen();
-  } else {
-    navigateToLoanScreen();
-  }
-};
-```
 
 ### Sending test data
 

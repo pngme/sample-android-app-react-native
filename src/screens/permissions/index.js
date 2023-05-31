@@ -8,11 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import {
-  go,
-  isPermissionGranted,
-  resetPermissionFlow,
-} from '@pngme/react-native-sms-pngme-android';
+import { go } from '@pngme/react-native-sms-pngme-android';
 
 import CheckBox from '@react-native-community/checkbox';
 import RNConfig from 'react-native-config';
@@ -55,6 +51,7 @@ const Permissions = (props) => {
     if (toggleCheckBox && !user.pngmePermissionWasSelected) {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
+
       await go({
         clientKey: RNConfig.PNGME_SDK_TOKEN,
         firstName: user.firstName,
@@ -63,7 +60,6 @@ const Permissions = (props) => {
         phoneNumber: `234${user.phoneNumber}`,
         companyName: 'Acme Bank',
         externalId: '',
-        hidePngmeDialog: false, // if you want to hide the Pngme dialog, set this to true
       });
     } else if (toggleCheckBox && user.pngmePermissionWasSelected) {
       const reRequestSMSPermission = await canPermissionBeAskedAgain();
