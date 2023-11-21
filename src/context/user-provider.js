@@ -6,10 +6,7 @@ import { UserContext } from './user-context';
 const USER_PERSISTENCE_KEY = "user";
 
 const initialState = {
-  firstName: '',
-  lastName: '',
-  phone: '',
-  email: '',
+  externalId: '',
   pngmePermissionWasSelected: false,
 }
 

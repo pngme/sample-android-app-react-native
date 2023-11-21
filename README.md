@@ -58,10 +58,6 @@ import { go } from "@pngme/react-native-sms-pngme-android";
 const openSDK = async () => {
   const goParams = {
     clientKey,
-    firstName: userFirstName,
-    lastName: userLastName,
-    email: userEmail,
-    phoneNumber: userPhone,
     companyName,
     externalId,
   };
@@ -76,10 +72,6 @@ import { goWithCustomDialog } from "@pngme/react-native-sms-pngme-android";
 const openSDK = async () => {
   const goWithCustomDialogParams = {
     clientKey,
-    firstName: userFirstName,
-    lastName: userLastName,
-    email: userEmail,
-    phoneNumber: userPhone,
     companyName,
     externalId,
     hasAcceptedTerms: true, // defaults to false
@@ -97,10 +89,6 @@ type go = (params: GoParams) => Promise<void>;
 
 interface GoParams {
   clientKey: string; // pass the SDK token here
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
   externalId: string;
   companyName: string;
 }
@@ -113,10 +101,6 @@ type goWithCustomDialog = (params: GoWithCustomDialogParams) => Promise<void>;
 
 interface GoWithCustomDialogParams {
   clientKey: string; // pass the SDK token here
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
   externalId: string;
   companyName: string;
   hasAcceptedTerms: boolean; // defaults to false
@@ -133,10 +117,6 @@ The `go` and `goWithCustomDialog` method performs three tasks.
 | Field           | Description                                                                                         |
 | --------------- | --------------------------------------------------------------------------------------------------- |
 | clientKey       | the SDK Token from the [Pngme Dashboard Keys page](https://admin.pngme.com/keys)                    |
-| firstName       | the mobile phone user's first name                                                                  |
-| lastName        | the mobile phone user's last name                                                                   |
-| email           | the mobile phone user's email address                                                               |
-| phoneNumber     | the mobile phone user's phone number, example `"23411234567"`                                       |
 | externalId      | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
 | companyName     | your company's name; this is used in the display header of the permissions UI flow                  |
 | hasAcceptedTerms | a boolean, if the user has accepted the terms and conditions when invoking the 'goWithCustomDialog' method.              |
@@ -194,10 +174,6 @@ const handleContinue = async () => {
     setUser({ pngmePermissionWasSelected: true });
     await go({
       clientKey: RNConfig.PNGME_SDK_TOKEN,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phoneNumber: `234${user.phoneNumber}`,
       companyName: "Acme Bank",
       externalId: "",
     });
