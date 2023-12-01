@@ -60,6 +60,7 @@ const openSDK = async () => {
     clientKey,
     companyName,
     externalId,
+    phoneNumber,
   };
   const response = await go(goParams);
 };
@@ -74,6 +75,7 @@ const openSDK = async () => {
     clientKey,
     companyName,
     externalId,
+    phoneNumber,
     hasAcceptedTerms: true, // defaults to false
   };
   const response = await goWithCustomDialog(goWithCustomDialogParams);
@@ -89,6 +91,7 @@ type go = (params: GoParams) => Promise<void>;
 
 interface GoParams {
   clientKey: string; // pass the SDK token here
+  phoneNumber: userPhone, // optional
   externalId: string;
   companyName: string;
 }
@@ -101,6 +104,7 @@ type goWithCustomDialog = (params: GoWithCustomDialogParams) => Promise<void>;
 
 interface GoWithCustomDialogParams {
   clientKey: string; // pass the SDK token here
+  phoneNumber: userPhone, // optional
   externalId: string;
   companyName: string;
   hasAcceptedTerms: boolean; // defaults to false
@@ -119,6 +123,7 @@ The `go` and `goWithCustomDialog` method performs three tasks.
 | clientKey       | the SDK Token from the [Pngme Dashboard Keys page](https://admin.pngme.com/keys)                    |
 | externalId      | a unique identifier for the user provided by your app; if none available, pass an empty string `""` |
 | companyName     | your company's name; this is used in the display header of the permissions UI flow                  |
+| phoneNumber     | the mobile phone user's phone number, example `"23411234567"`                                       |
 | hasAcceptedTerms | a boolean, if the user has accepted the terms and conditions when invoking the 'goWithCustomDialog' method.              |
 
 ### `isPermissionGranted()`
