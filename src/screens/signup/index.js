@@ -14,11 +14,7 @@ const SignUp = (props) => {
 
   const { navigation } = props;
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-
+  const [externalId, setExternalId] = useState('');
   const { setUser } = useUser();
 
   return (
@@ -33,26 +29,9 @@ const SignUp = (props) => {
 
           <View style={styles.content}>
             <TextField
-              label="First Name"
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-            <TextField
-              label="Last Name"
-              value={lastName}
-              onChangeText={setLastName}
-            />
-            <TextField
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <TextField
-              label="Phone"
-              prefix="+234"
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-              keyboardType="phone-pad"
+              label="External ID"
+              value={externalId}
+              onChangeText={setExternalId}
             />
           </View>
           
@@ -61,14 +40,11 @@ const SignUp = (props) => {
               title="CREATE ACCOUNT"
               onPress={() => {
                 setUser({
-                  firstName,
-                  lastName,
-                  email,
-                  phoneNumber,
+                  externalId,
                 });
                 navigation.navigate('LoggedWelcomeScreen');
               }}
-              disabled={!firstName || !lastName || !email || !phoneNumber}
+              disabled={!externalId}
             />
           </View>
           

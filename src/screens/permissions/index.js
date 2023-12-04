@@ -54,10 +54,6 @@ const Permissions = (props) => {
 
       await go({
         clientKey: RNConfig.PNGME_SDK_TOKEN,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phoneNumber: `234${user.phoneNumber}`,
         companyName: 'Acme Bank',
         externalId: '',
       });
