@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://admin.pngme.com/logo.png" alt="Pngme" width="100" height="100">
-  <h3 align="center">Pngme Android (React Native) SDK & Sample App</h3>
+  <h3 align="center">Pngme Android (React Native) SDK Guide</h3>
 </p>
 
 This documentation covers how to use the Pngme SDK with React Native.
@@ -12,11 +12,11 @@ You can find similar documentation for [Expo](https://github.com/pngme/sample-an
 1. The SDK supports Android API version 16+
 1. The SDK enables your app to:
    1. Register a mobile phone user with Pngme
-   1. Request SMS permissions from the user using a [Permission Dialog Flow](.docs/permission_flow.gif)
    1. Periodically send data to Pngme to analyze financial events
 1. Using the SDK requires an **SDK Token**
    - [**Sign up for a free Pngme Dashboard account**](https://admin.pngme.com) then access your SDK token from the [Keys page](https://admin.pngme.com/keys)
    - Use the `test` SDK token during development but replace with the `production` SDK token before deploying your app to the Google Play store
+   - A custom consent dialog for requesting SMS permissions from the user. You can follow the design guide [here](https://drive.google.com/file/d/1SAc4Wt62mYUleDfSme3GMG9yyDT8omwP/view) to create a custom dialog.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/pngme/sample-android-app-flutter/main/.docs/webconsole_keys.png" width=450 height=300/>
@@ -50,22 +50,8 @@ PNGME_SDK_TOKEN=XXXXXXXXXX
 
 ### Step 3
 
-Call the `go()` method in your app where you would like to trigger the [Permission Dialog Flow](.docs/permission_flow.gif).
+Call the `goWithCustomDialog()` method in your app after the user has given consent to read SMS messages.
 
-```ts
-import { go } from "@pngme/react-native-sms-pngme-android";
-
-const openSDK = async () => {
-  const goParams = {
-    clientKey,
-    companyName,
-    externalId,
-    phoneNumber,
-  };
-  const response = await go(goParams);
-};
-```
-If you would like to use your own onboarding flow in which a user is presented with Pngme's terms & conditions and privacy policy, you can use the `goWithCustomDialog()` method.
 
 ```ts
 import { goWithCustomDialog } from "@pngme/react-native-sms-pngme-android";
@@ -84,18 +70,6 @@ const openSDK = async () => {
 
 ## PngmeSDK API
 
-### `go()`
-
-```ts
-type go = (params: GoParams) => Promise<void>;
-
-interface GoParams {
-  clientKey: string; // pass the SDK token here
-  phoneNumber: userPhone, // optional
-  externalId: string;
-  companyName: string;
-}
-```
 
 ### `goWithCustomDialog()`
 
@@ -111,12 +85,10 @@ interface GoWithCustomDialogParams {
 }
 ```
 
-The `go` and `goWithCustomDialog` method performs three tasks.
+The `goWithCustomDialog` method performs two tasks.
 
 1. register a `user` in Pngme's system using an Android Onetime Worker
-2. show a [Permission Dialog Flow](.docs/permission_flow.gif) in the current Activity to request SMS permissions from the user --
-   by default, this _runs the first time, and only the first time_, that `go` is invoked
-3. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Background Worker
+2. check for new SMS messages and send them to Pngme's system every 30 minutes using an Android Background Worker
 
 | Field           | Description                                                                                         |
 | --------------- | --------------------------------------------------------------------------------------------------- |
@@ -137,63 +109,6 @@ This indicates if the user has accepted the SMS permissions request:
 - Returns a Promise that resolves to `true` if the user has accepted the SMS permission request
 - Returns a Promise that resolves to `false` if the user has denied the SMS permission request
 
-## Sample Android App
-
-> Running these next steps assume that you have set up your environment for Android development in React Native.
-> See the [React Native Official Docs](https://reactnative.dev/docs/environment-setup) before proceeding if needed.
-
-This repository is a sample Android app, which uses the Pngme SDK.
-This app uses the `.env` file to inject the SDK Token.
-As noted above, it is highly recommended that additional measures be taken to protect the SDK Token when implementing in a production app.
-
-This app can be compiled and emulated locally, with or without a valid SDK Token.
-If a valid SDK Token is used, then data will be sent through to the Pngme system while testing in emulation mode.
-
-> Before launching the app, you might want to have some SMS ready in the phone's inbox for faster testing. Refer to the section [Send SMS data locally](#Send-SMS-data-locally) down below
-
-To run the sample app locally, install dependencies and launch the app:
-
-```bash
-yarn install
-npx react-native run-android
-```
-
-### Behavior
-
-The sample app demonstrates a basic flow:
-
-1. user creates an account with the app
-2. the user goes to apply for a loan, and has the option of selecting to use the Pngme service
-3. if the Pngme service is selected, the SDK is invoked, and the [Permission Flow](.docs/permission_flow.gif) is presented
-
-   <sub>- :warning: _Note that if a user chooses to hide the permissions flow, they will need to design their own information and consent screen compliant with Google Whitelisting requirements. Consult with <support@pngme.com> if you would like assistance with this process._</sub>
-
-4. when the permission flow exits, the user is presented with a fake loan application page
-
-The SDK is implemented in the `screens/permissions/index.js`, when the user clicks on the _Continue_ button:
-
-```ts
-const handleContinue = async () => {
-  if (toggleCheckBox) {
-    // if user confirm they want to use Pngme, we store that selection
-    setUser({ pngmePermissionWasSelected: true });
-    await go({
-      clientKey: RNConfig.PNGME_SDK_TOKEN,
-      companyName: "Acme Bank",
-      externalId: "",
-    });
-    navigateToLoanScreen();
-  } else {
-    navigateToLoanScreen();
-  }
-};
-```
-
-The app remembers the selection in step 2.
-If the user chooses to enable the Pngme service,
-then the checkbox stays selected for all future loan applications.
-The [Permission Flow](.docs/permission_flow.gif) is only showed the very first time,
-_regardless of if the user accepts or denies the permissions_.
 
 ### Sending test data
 

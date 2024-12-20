@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { go } from '@pngme/react-native-sms-pngme-android';
+import { goWithCustomDialog } from '@pngme/react-native-sms-pngme-android';
 
 import CheckBox from '@react-native-community/checkbox';
 import RNConfig from 'react-native-config';
@@ -52,9 +52,10 @@ const Permissions = (props) => {
       // if user confirm they want to use Pngme, we store that selection
       setUser({ pngmePermissionWasSelected: true });
 
-      await go({
+      await goWithCustomDialog({
         clientKey: RNConfig.PNGME_SDK_TOKEN,
         companyName: 'Acme Bank',
+        hasAcceptedTerms: true, // user has accepted the terms and conditions
         externalId: '',
       });
     } else if (toggleCheckBox && user.pngmePermissionWasSelected) {
